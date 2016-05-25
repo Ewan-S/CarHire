@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Styles.Render("~/Content/bootstrap")
+
+    @*sitewide css*@
+    @Styles.Render("~/Content/site")
+
+    @*custom css for the layout page*@
+    @Styles.Render("~/Content/layout")
+
+</head>
+<body>
+
+    <nav class="navbar navbar-static-top TopNavBar TopBarItem">
+        @*navbar-fixed-top*@
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" rel="home" href="#" title="Buy Sell Rent Everyting">
+                    <img style="max-width:150px; margin-top: -7px;" src="~/Images/logo.png">
+                </a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="TopBarButton">
+                    <a href="#" class="TopBarItem TopBarButton">
+                        About us
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="TopBarItem TopBarButton">
+                        Contact us
+                    </a>
+                </li>
+                <li>
+                    @Html.Partial("_LoginPartial")
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-static-top SecondBarItem">
+        <div class="container-fluid" style="padding-left: 0; padding-right: 0;">
+            <ul class="nav navbar-nav col-md-12">
+                <li class="col-md-3 SecondBarItem">
+                    <a class="SecondBarItem SecondBarButton" href="#">Hire</a>
+                </li>
+
+                <li class="dropdown col-md-3 SecondBarItem">
+                    @*<a href=""></a>*@
+                    @Html.ActionLink("Locations", "Index", "Locations", null, new {@class = "SecondBarItem SecondBarButton"})"
+                     
+                </li>
+
+                <li class="col-md-3 SecondBarItem">
+                    <a class="SecondBarItem SecondBarButton" href="#">For Business</a>
+                </li>
+
+                <li class="col-md-3 SecondBarItem">
+                    <a class="SecondBarItem SecondBarButton" href="#">Share</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryajax")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/knockout")
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", false)
+</body>
+
+</html>

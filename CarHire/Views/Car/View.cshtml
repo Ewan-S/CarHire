@@ -1,0 +1,115 @@
+﻿@model CarHire.Models.Car
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<div>
+    <h4>Car</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NumDoors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumDoors)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EngineSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EngineSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Registration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Registration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Colour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfWheels)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfWheels)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufactureDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufactureDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAutomatic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAutomatic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.VehicleId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="..." alt="...">
+            <div class="caption">
+                <h3>Thumbnail label</h3>
+                <p>...</p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="..." alt="...">
+            <div class="caption">
+                <h3>Thumbnail label</h3>
+                <p>...</p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+            </div>
+        </div>
+    </div>
+</div>

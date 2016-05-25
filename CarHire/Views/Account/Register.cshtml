@@ -1,0 +1,216 @@
+﻿
+@model CarHire.ViewModels.Account.RegisterViewModel
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<h1>@ViewBag.Title</h1>
+<h3>Great! We just need a few details...</h3>
+<hr />
+
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+</div>
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div id="accordion">
+        <h3 class="panel-title PanelHeader">Personal Details</h3>
+        <div>
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(m => m.FirstName, new { @class = " control-label" }) @*col-md-2*@
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-2">
+                    @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-1">
+                    @Html.LabelFor(m => m.Age, new { @class = "control-label" })
+                </div>
+                <div class="col-md-1">
+                    @Html.TextBoxFor(m => m.Age, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <h3 class="panel-title PanelHeader">Address Details</h3>
+        <div>
+            <div class="form-group">
+                <div class="form-group">
+                    @*Line 1*@
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.Line1, new { @class = " control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Line1, new { @class = "form-control" })
+                    </div>
+
+                    @*Town*@
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.Town, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Town, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*Line 2*@
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.Line2, new { @class = " control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Line2, new { @class = "form-control" })
+                    </div>
+
+                    @*City*@
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.City, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*Line3*@
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.Line3, new { @class = " control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Line3, new { @class = "form-control" })
+                    </div>
+
+                    @*County*@
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.County, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.County, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*Postcode*@
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.Postcode, new { @class = " control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Postcode, new { @class = "form-control" })
+                    </div>
+
+                    @*Country*@
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.Country, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="panel-title PanelHeader">Contact Details</h3>
+        <div>
+            <div class="form-group">
+                @*Email*@
+                <div class="col-md-2">
+                    @Html.LabelFor(m => m.Email, new { @class = " control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+
+                @*Telephone*@
+                <div class="col-md-2">
+                    @Html.LabelFor(m => m.Telephone, new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.Telephone, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <h3 class="panel-title PanelHeader">Password</h3>
+        <div>
+            <div class="form-group">
+                @*Password*@
+                <div class="col-md-2">
+                    @Html.LabelFor(m => m.Password, new { @class = " control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                </div>
+
+                @*ConfirmPassword*@
+                <div class="col-md-2">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="form-group">
+        <div class="col-md-offset-9">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register" />
+        </div>
+    </div>
+}
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#accordion").accordion({
+                heightStyle: "content",
+                icons: { header: "ui-icon-circle-arrow-e", activeHeader: "ui-icon-circle-arrow-s" }
+            });
+
+            //function RegisterModel() {
+            //    this.FirstName = ko.observable("");
+            //    this.LastName = ko.observable("");
+            //    this.Age = ko.observable("");
+
+            //    this.Line1 = ko.observable("");
+            //    this.Line2 = ko.observable("");
+            //    this.Line3 = ko.observable("");
+            //    this.Town = ko.observable("");
+            //    this.City = ko.observable("");
+            //    this.County = ko.observable("");
+            //    this.Postcode = ko.observable("");
+            //    this.Country = ko.observable("");
+
+            //    this.Email = ko.observable("");
+            //    this.Telephone = ko.observable("");
+
+            //    this.Password = ko.observable("");
+            //    this.ConfirmPassword = ko.observable("");
+            //}
+
+            //ko.applyBindings(new RegisterModel());
+        });
+
+    </script>
+}

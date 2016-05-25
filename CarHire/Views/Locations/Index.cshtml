@@ -1,0 +1,134 @@
+﻿@model IEnumerable<CarHire.Models.Location>
+
+@{
+    ViewBag.Title = "Our Locations";
+}
+<head>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
+</head>
+
+<body>
+
+    <h2>Our Locations</h2>
+    <h4>Whats your postcode? We'll find a location near you!</h4>
+
+    @Html.TextBox("postcodeText", null, new { placeholder = "Postcode", @id = "searchBox", @style = "width:400px" })
+
+    <hr />
+
+    <div class="col-md-12">
+        <div class="col-md-4">
+            locations
+        </div>
+
+        <div class="col-md-8">
+            <div id="googleMap" style="width: 750px; height: 750px;"></div>
+        </div>
+    </div>
+</body>
+
+
+@section Scripts{
+    <script>
+        $(function() {
+            Init();
+        });
+
+        var PostcodeSearchbox, Map;
+
+        function Init() {
+
+            SetupPostcodeBox();
+
+            SetupMap();
+        }
+
+        function SetupPostcodeBox() {
+            //setup the postcode searchbox using google's autocomplete geocode textbox
+            PostcodeSearchbox = new google.maps.places.Autocomplete(document.getElementById('searchBox'), { types: ['geocode'] });
+
+            //on postcodebox change, call:
+            google.maps.event.addListener(PostcodeSearchbox, 'place_changed', function() {
+
+                //get the selected location from the dropdown
+                var place = this.getPlace();
+
+                //reset the map to centre on the location, and zoom in
+                var mapProperties = {
+                    zoom: 9,
+                    center: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() },
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                Map = new google.maps.Map(document.getElementById("googleMap"), mapProperties);
+
+                PlaceMarkersFromModel();
+
+
+                alert(place.geometry.location.lat() +":"+ place.geometry.location.lng());
+                //users location
+                @{
+                    @:addMarker(place.geometry.location.lat(), place.geometry.location.lng(), 'You', 'Your location');
+                }
+
+                //alert("This function is working!");
+                //alert(place.name);
+                // alert(place.address_components[0].long_name);
+            });
+        }
+
+        function SetupMap()
+        {
+            var country = "United kingdom";
+            var geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({ 'address': country }, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK)
+                {
+                    var mapProperties = {
+                        zoom: 6,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        center: { lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng() }
+                    };
+
+                    Map = new google.maps.Map(document.getElementById("googleMap"), mapProperties);
+                }
+                else
+                {
+                    alert("boom goes the dynamite");
+                }
+
+                PlaceMarkersFromModel();
+
+            });
+        }
+
+        function PlaceMarkersFromModel() {
+            @foreach (var item in Model){
+                @:addMarker(@item.latitude, @item.longtitude, '@item.LocationId', '@item.Address.GetCompleteAddresss()');
+            }
+        }
+
+        function addMarker(latitude, longitude, title, description) {
+
+            var latLng = new google.maps.LatLng(latitude, longitude);
+
+            var contentString = '<h3>' + title + '</h3>' + '<p>' + description + '</p>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            var marker = new google.maps.Marker({
+                position: latLng,
+                title: title,
+                map : Map,
+                draggable: false
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(Map, marker);
+            });
+        }
+    </script>
+}

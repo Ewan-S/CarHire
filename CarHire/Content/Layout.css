@@ -1,0 +1,35 @@
+﻿.navbar {
+    position: static;
+}
+
+.TopNavBar {
+    margin-bottom: 0px;
+}
+
+.TopBarItem {
+    text-align: center;
+    color: whitesmoke !important;
+    height: 60px !important;
+    background-color: green !important;
+    font-size: small !important;
+}
+
+.TopBarButton {
+    width: 120px;
+}
+
+.SecondBarItem {
+    text-align: center;
+    color: whitesmoke !important;
+    height: 70px !important;
+    background-color: darkgreen;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.SecondBarButton {
+    border: black;
+    border-style: groove;
+    border-width: thin;
+    font-size: large !important;
+}
