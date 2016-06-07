@@ -195,10 +195,12 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\UserAccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -206,7 +208,9 @@
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\GeoLocation\GeoLocation.cs" />
     <Compile Include="Models\Loan.cs" />
-    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Locations\BusinessHours.cs" />
+    <Compile Include="Models\Locations\Location.cs" />
+    <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Models\User Classes\Address.cs" />
     <Compile Include="Models\Van.cs" />
     <Compile Include="Models\CarHireContext.cs" />
@@ -218,6 +222,7 @@
     <Compile Include="Repositories\CarRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Locations\StoreLocationRequestModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -262,6 +267,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\rentMarker.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -313,18 +319,18 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\UserAccount\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\UserAccount\ConfirmEmail.cshtml" />
+    <Content Include="Views\UserAccount\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\UserAccount\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\UserAccount\ForgotPassword.cshtml" />
+    <Content Include="Views\UserAccount\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\UserAccount\Login.cshtml" />
+    <Content Include="Views\UserAccount\Register.cshtml" />
+    <Content Include="Views\UserAccount\ResetPassword.cshtml" />
+    <Content Include="Views\UserAccount\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\UserAccount\SendCode.cshtml" />
+    <Content Include="Views\UserAccount\VerifyCode.cshtml" />
     <Content Include="Views\AccountManage\AddPhoneNumber.cshtml" />
     <Content Include="Views\AccountManage\ChangePassword.cshtml" />
     <Content Include="Views\AccountManage\Index.cshtml" />
@@ -339,6 +345,8 @@
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
+    <Content Include="Views\Locations\LocationsListPartial.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

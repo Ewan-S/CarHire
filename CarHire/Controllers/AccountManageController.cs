@@ -287,7 +287,7 @@
         public ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
-            return new AccountController.ChallengeResult(provider, this.Url.Action("LinkLoginCallback", "AccountManage"), this.User.Identity.GetUserId());
+            return new UserAccountController.ChallengeResult(provider, this.Url.Action("LinkLoginCallback", "AccountManage"), this.User.Identity.GetUserId());
         }
 
         //

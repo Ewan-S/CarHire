@@ -8,6 +8,7 @@ namespace CarHire.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    using CarHire.Models.Locations;
     using CarHire.Models.User_Classes;
 
     public class Location
@@ -23,10 +24,21 @@ namespace CarHire.Models
 
         public Location(){ }
 
-        public Location(double Latitude, double Longitude)
+        public Location(double latitude, double longitude)
         {
-            this.latitude = Latitude;
-            this.longtitude = Longitude;
+            this.latitude = latitude;
+            this.longtitude = longitude;
         }
     }
+
+    public class UserLocation : Location { }
+
+    public class StoreLocation : Location
+    {
+        public string StoreName { get; set; }
+        public string TelephoneNumber { get; set; }
+
+        public List<BusinessHours> BusinessHours { get; set; }
+    }
+
 }

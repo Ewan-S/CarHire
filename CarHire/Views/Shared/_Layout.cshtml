@@ -28,6 +28,10 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="TopBarButton">
+                    @Html.ActionLink("Admin", "Index", "Admin")"
+                </li>
+
+                <li class="TopBarButton">
                     <a href="#" class="TopBarItem TopBarButton">
                         About us
                     </a>
@@ -37,9 +41,9 @@
                         Contact us
                     </a>
                 </li>
-                <li>
-                    @Html.Partial("_LoginPartial")
-                </li>
+
+                @Html.Partial("_LoginPartial")
+
             </ul>
         </div>
     </nav>
@@ -53,8 +57,8 @@
 
                 <li class="dropdown col-md-3 SecondBarItem">
                     @*<a href=""></a>*@
-                    @Html.ActionLink("Locations", "Index", "Locations", null, new {@class = "SecondBarItem SecondBarButton"})"
-                     
+                    @Html.ActionLink("Locations", "Index", "Locations", null, new { @class = "SecondBarItem SecondBarButton" })"
+
                 </li>
 
                 <li class="col-md-3 SecondBarItem">

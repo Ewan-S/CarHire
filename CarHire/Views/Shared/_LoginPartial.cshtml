@@ -21,7 +21,7 @@
         </ul>
     </li>
 
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    using (Html.BeginForm("LogOff", "UserAccount", FormMethod.Post, new { id = "logoutForm" }))
     {
         @Html.AntiForgeryToken()
     }
@@ -29,12 +29,12 @@
 else
 {
     <li>
-        <a href="@Url.Action("Register", "Account")" class="TopBarItem TopBarButton">
+        <a href="@Url.Action("Register", "UserAccount")" class="TopBarItem TopBarButton">
             <span class="glyphicon glyphicon-user"></span> Sign Up
         </a>
     </li>
     <li>
-        <a href="@Url.Action("Login", "Account")" class="TopBarItem TopBarButton">
+        <a href="@Url.Action("Login", "UserAccount")" class="TopBarItem TopBarButton">
             <span class="glyphicon glyphicon-log-in"></span> Login
         </a>
     </li>

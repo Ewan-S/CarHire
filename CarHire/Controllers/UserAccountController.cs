@@ -17,7 +17,7 @@
     using Microsoft.Owin.Security;
 
     [Authorize]
-    public class AccountController : Controller
+    public class UserAccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -34,11 +34,11 @@
             private set { this._userManager = value; }
         }
 
-        public AccountController()
+        public UserAccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public UserAccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
@@ -287,12 +287,12 @@
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return this.RedirectToAction("ResetPasswordConfirmation", "Account");
+                return this.RedirectToAction("ResetPasswordConfirmation", "UserAccount");
             }
             var result = await this.UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return this.RedirectToAction("ResetPasswordConfirmation", "Account");
+                return this.RedirectToAction("ResetPasswordConfirmation", "UserAccount");
             }
             this.AddErrors(result);
             return this.View();
@@ -311,7 +311,7 @@
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(provider, this.Url.Action("ExternalLoginCallback", "UserAccount", new { ReturnUrl = returnUrl }));
         }
 
         //

@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Text;
+    using System.Web;
 
     using Microsoft.Owin.Security.Facebook;
 
@@ -57,59 +58,66 @@
         [Display(Name = "Postcode")]
         public string Postcode { get; set; }
 
-        public string GetCompleteAddresss()
+        public string JavascriptEscapedFormattedAddress => HttpUtility.JavaScriptStringEncode(this.HtmlFormattedAddress);
+
+        public string HtmlFormattedAddress => this.FormattedAddress.Replace(@"\n", "<br/>");
+
+        public string FormattedAddress
         {
-            StringBuilder sb = new StringBuilder();
-
-            if (!string.IsNullOrWhiteSpace(this.Line1))
+            get
             {
-                sb.Append(this.Line1);
-                sb.Append(", ");
-            }
+                StringBuilder sb = new StringBuilder();
 
-            if (!string.IsNullOrWhiteSpace(this.Line2))
-            {
-                sb.Append(this.Line2);
-                sb.Append(", ");
-            }
+                if (!string.IsNullOrWhiteSpace(this.Line1))
+                {
+                    sb.Append(this.Line1);
+                    sb.Append(", ");
+                }
 
-            if (!string.IsNullOrWhiteSpace(this.Line3))
-            {
-                sb.Append(this.Line3);
-                sb.Append(", ");
-            }
+                if (!string.IsNullOrWhiteSpace(this.Line2))
+                {
+                    sb.Append(this.Line2);
+                    sb.Append(", ");
+                }
 
-            if (!string.IsNullOrWhiteSpace(this.Town))
-            {
-                sb.Append(this.Town);
-                sb.Append(", ");
-            }
+                if (!string.IsNullOrWhiteSpace(this.Line3))
+                {
+                    sb.Append(this.Line3);
+                    sb.Append(@",\n");
+                }
 
-            if (!string.IsNullOrWhiteSpace(this.City))
-            {
-                sb.Append(this.City);
-                sb.Append(", ");
-            }
+                if (!string.IsNullOrWhiteSpace(this.Town))
+                {
+                    sb.Append(this.Town);
+                    sb.Append(@",");
+                }
 
-            if (!string.IsNullOrWhiteSpace(this.County))
-            {
-                sb.Append(this.County);
-                sb.Append(", ");
-            }
+                if (!string.IsNullOrWhiteSpace(this.City))
+                {
+                    sb.Append(this.City);
+                    sb.Append(@",\n");
+                }
 
-            if (!string.IsNullOrWhiteSpace(this.Postcode))
-            {
-                sb.Append(this.Postcode);
-                sb.Append(", ");
-            }
+                if (!string.IsNullOrWhiteSpace(this.County))
+                {
+                    sb.Append(this.County);
+                    sb.Append(@",\n");
+                }
 
-            if (!string.IsNullOrWhiteSpace(this.Country))
-            {
-                sb.Append(this.Country);
-                //should always be prestent, hopefully no outlying commas
-            }
+                if (!string.IsNullOrWhiteSpace(this.Postcode))
+                {
+                    sb.Append(this.Postcode);
+                    sb.Append(@",");
+                }
 
-            return sb.ToString();
+                if (!string.IsNullOrWhiteSpace(this.Country))
+                {
+                    sb.Append(this.Country);
+                    //should always be present, hopefully no outlying commas
+                }
+
+                return sb.ToString();
+            }
         }
     }
 }
