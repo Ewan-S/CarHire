@@ -2,29 +2,7 @@
 
 @if (Request.IsAuthenticated)
 {
-    <li class="dropdown TopBarItem TopBarButton">
-
-
-        <a href="#" class="dropdown-toggle pull-left TopBarItem TopBarButton" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu">
-
-            <li role="menuitem">@Html.ActionLink("My Details", "Index", "AccountManage")</li>
-
-            <li role="menuitem" class="divider"></li>
-
-            <li role="menuitem" class="disabled">@Html.ActionLink("Item 2 (disabled)", "About", "Home")</li>
-            <li role="menuitem" class="divider"></li>
-
-            <li role="menuitem">
-                <a onclick="" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-            </li>
-        </ul>
-    </li>
-
-    using (Html.BeginForm("LogOff", "UserAccount", FormMethod.Post, new { id = "logoutForm" }))
-    {
-        @Html.AntiForgeryToken()
-    }
+    @Html.Partial("MyAccountDropdownPartial")
 }
 else
 {

@@ -32,9 +32,11 @@ namespace CarHire.Models
 
         public override IDbSet<UserAccount> Users { get; set; }
 
-        public DbSet<Car> Cars { get; set; }
+        public IDbSet<IdentityUserRole> UsersRoles { get; set; }
 
-        public DbSet<Loan> Loans { get; set; }
+        //public DbSet<Car> Cars { get; set; }
+
+        //public DbSet<Loan> Loans { get; set; }
 
 
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
@@ -59,5 +61,6 @@ namespace CarHire.Models
             return new CarHireContext();
         }
 
+        public System.Data.Entity.DbSet<CarHire.Models.Car> Cars { get; set; }
     }
 }

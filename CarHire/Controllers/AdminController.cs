@@ -6,12 +6,17 @@ using System.Web.Mvc;
 
 namespace CarHire.Controllers
 {
-    [Authorize(Roles = "isAdmin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         // GET: Admin
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+              
+            }
+
             return View();
         }
     }

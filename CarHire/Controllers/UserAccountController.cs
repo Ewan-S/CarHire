@@ -82,7 +82,7 @@
             switch (result)
             {
                 case SignInStatus.Success:
-                    return this.RedirectToLocal(returnUrl);
+                    return this.RedirectToAction("Index", "Home");
 
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");

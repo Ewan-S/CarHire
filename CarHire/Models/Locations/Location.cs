@@ -14,7 +14,7 @@ namespace CarHire.Models
     public class Location
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid LocationId { get; set; }
 
         public double latitude { get; set; }

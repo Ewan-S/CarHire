@@ -15,12 +15,23 @@ namespace CarHire.Models.Locations
         public Guid LocationId { get; set; }
 
         [Required]
-        public int Day { get; set; }
+        public Day Day { get; set; }
 
         [Required]
         public DateTime OpeningTime { get; set; }
 
         [Required]
         public DateTime ClosingTime { get; set; }
+    }
+
+    public enum Day
+    {
+        Monday = 1,
+        Tuesday = 2,
+        Wednesday = 3,
+        Thursday = 4,
+        Friday = 5,
+        Saturday = 6,
+        Sunday = 7
     }
 }

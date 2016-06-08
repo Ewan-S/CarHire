@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -210,7 +210,6 @@
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\Locations\BusinessHours.cs" />
     <Compile Include="Models\Locations\Location.cs" />
-    <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Models\User Classes\Address.cs" />
     <Compile Include="Models\Van.cs" />
     <Compile Include="Models\CarHireContext.cs" />
@@ -347,6 +346,7 @@
     <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Views\Locations\LocationsListPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\MyAccountDropdownPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -373,7 +373,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55970</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55970/</IISUrl>
+          <IISUrl>http://localhost:56969/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
