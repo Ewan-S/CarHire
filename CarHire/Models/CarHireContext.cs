@@ -62,5 +62,7 @@ namespace CarHire.Models
         }
 
         public System.Data.Entity.DbSet<CarHire.Models.Car> Cars { get; set; }
+
+        public System.Data.Entity.DbSet<CarHire.Models.Base_Classes.Vehicle> Vehicles { get; set; }
     }
 }

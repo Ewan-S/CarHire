@@ -1,9 +1,20 @@
 ﻿@model IEnumerable<CarHire.Models.StoreLocation>
 
+@if (!Model.Any())
+{
+    <h4 style="text-align: center"> No locations found! </h4>
+}
+else
+{
+    if (Model.Count() == 1)
+    {
+        <h4 style="text-align: center"> @Model.Count() Location near you </h4>
+    }
+    else
+    {
+        <h4 style="text-align: center"> @Model.Count() Locations near you </h4>
+    }
 
-<h4 style="text-align: center">@Model.Count() Locations near you</h4>
-<hr />
-@{
     var counter = 1;
 
     foreach (var location in Model)
@@ -17,7 +28,7 @@
             <div class="panel-body" style="padding-bottom: 0px">
 
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <p>
                             @Html.Raw(@location.Address.HtmlFormattedAddress)
                         </p>
@@ -25,14 +36,14 @@
                             @location.TelephoneNumber
                         </p>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <a href="#" class="">
                             Details
                         </a>
 
-                        <a href="#" class="">
-                            Hire
-                        </a>
+                        @*javascript doesn't exist in the partial, see Locations\Index.cshtml*@
+                        @*<a href="#" onclick="makeStoreSelection('@location.LocationId')">Select</a>*@
+                        <button data-bind="click:selectLocation.bind($data,'@location.LocationId')">Select</button>
                     </div>
                 </div>
             </div>
@@ -41,14 +52,15 @@
         counter++;
     }
 }
-<style>
-    .locationPanel {
-        padding-bottom: 0px;
-    }
 
-    .locationPanelHeading {
-        background-color: green !important;
-        background-image: none;
-        color: white;
-    }
-</style>
+    <style>
+        .locationPanel {
+            padding-bottom: 0px;
+        }
+
+        .locationPanelHeading {
+            background-color: green !important;
+            background-image: none;
+            color: white;
+        }
+    </style>

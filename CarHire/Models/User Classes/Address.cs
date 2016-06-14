@@ -58,7 +58,7 @@
         [Display(Name = "Postcode")]
         public string Postcode { get; set; }
 
-        public string JavascriptEscapedFormattedAddress => HttpUtility.JavaScriptStringEncode(this.HtmlFormattedAddress);
+        public string EscapedFormattedAddress => HttpUtility.JavaScriptStringEncode(this.HtmlFormattedAddress);
 
         public string HtmlFormattedAddress => this.FormattedAddress.Replace(@"\n", "<br/>");
 
@@ -107,7 +107,7 @@
                 if (!string.IsNullOrWhiteSpace(this.Postcode))
                 {
                     sb.Append(this.Postcode);
-                    sb.Append(@",");
+                    sb.Append(@", ");
                 }
 
                 if (!string.IsNullOrWhiteSpace(this.Country))

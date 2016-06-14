@@ -1,66 +1,116 @@
-﻿@model IEnumerable<CarHire.Models.StoreLocation>
+﻿@using System.Linq
+@model IEnumerable<CarHire.Models.StoreLocation>
 
 <head>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places,geometry"></script>
 </head>
 
 <body>
-    <h5 class="postcodeLookupText">
-        <label>Find a location near you @Html.TextBox("postcodeText", null, new { placeholder = "Place/Address", @id = "searchBox", @style = "width:400px;" })</label>
+    <div class="row">
+        <div class="col-lg-8">
+            <h5 class="postcodeLookupText">
+                <label>Find a location near you @Html.TextBox("postcodeText", null, new { placeholder = "Place/Address", @id = "searchBox", @style = "width:400px;" })</label>
 
-        <em>within <select id="distanceDropdown" data-bind="options: distanceValues, value: DistanceValue"></select></em>
-    </h5>
+                <em>within <select id="distanceDropdown" data-bind="options: distanceValues, value: DistanceValue"></select></em>
+            </h5>
+        </div>
+        <div class="col-lg-4 hidden" data-bind="visible: DisplaySelectedLocation, css: { hidden: false }">
+            <label>
+                Selected: <span data-bind='text: SelectedLocationName'></span>
+            </label>
+
+            <button class="btn btn-primary btn-lg" style="float: right" data-bind='click: continueWithSelection'>
+                Continue
+                <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
     <hr />
 
     <div id="googleMap"></div>
 
     <div id="locationsOverlay" class="well" data-bind="visible: DisplayLocationsOverlay">
-
         <div id="locationsData"></div>
-
     </div>
 </body>
 
 
 @section Scripts{
     <script>
-        var PostcodeSearchbox, Map, StoreInfoWindow, UserInfoWindow, UserMarker;
+        //global variables, here so they can be easily accessed
+        //the instance of the postcode box
+        var PostcodeSearchbox;
+        //the instance of the google map
+        var Map;
+        //the user marker instance
+        var UserMarker;
+        //the infowindow for store locations, one 1 instance to prevent multiple popups
+        var StoreInfoWindow;
+        //the infowindow for user location, one 1, same as above
+        var UserInfoWindow;
+        //the instance of the knockout viewmodel
         var ViewModel;
-
+        //stores the storeLocation data for later access
         var storeLocations = [];
+
+        //user's location as a google map place, and as a googlemap LatLng
         var userLocation, userLatLng;
 
+        //knockout viewmodel defination
         function LocationsViewModel(id, name) {
             var self = this;
 
+            //distance dropdown values
             self.distanceValues = ko.observableArray(["5 miles", "10 miles", "20 miles", "50 miles", "100 miles", "Any distance"]),
+            //the selected distance (bound to the dropdown)
             self.DistanceValue = ko.observable("Any distance"),
 
-            self.SelectedLocationId = ko.observable(id);
+                //actual variables to store selected location data
+                self.SelectedLocationId = ko.observable(id);
             self.SelectedLocationName = ko.observable(name);
+
+            this.continueWithSelection = function () {
+                //cant use js values is razor defination, so replace id values
+                var url = '@Url.Action("Index", "Vehicles", new { locationId = "_id_" })';
+                window.location.href = url.replace('_id_', ViewModel.SelectedLocationId());
+            }
+
+            //called when the user clicks one of the select buttons, to select a store location
+            this.selectLocation = function(id) {
+                self.SelectedLocationId(id);
+
+                var store = getStoreById(id);
+
+                self.SelectedLocationName(store.storeName);
+            };
+
+            //do we display the users selection? (has the user made a selection?)
+            this.DisplaySelectedLocation = ko.computed(function() {
+                if (this.SelectedLocationId()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }, this);
+
 
             //should we display the locations overlay - ie, the user has selected a location and distance
             self.DisplayLocationsOverlay = ko.observable(false);
         }
 
-        function setDisplayLocationsOverlayFlag(displayLocationsOverlay) {
-            if (displayLocationsOverlay != null)
+        //functions to set knockout viewmodel values
+        function KO_setDisplayLocationsOverlayFlag(displayLocationsOverlay) {
+            if (displayLocationsOverlay)
                 ViewModel.DisplayLocationsOverlay(displayLocationsOverlay);
         }
 
-        function setSelectedLocationData(id, storeName) {
-            if (id != null)
-                ViewModel.SelectedLocationId(id);
-
-            if (name != null)
-                ViewModel.name(storeName);
-        }
-
-        $(function () {
+        //on page load function
+        $(function() {
 
             ViewModel = new LocationsViewModel(null, null);
 
-            ViewModel.DistanceValue.subscribe(function (newValue) {
+            //when the user changes the DistanceValue (which is hooked to dropdown), call onDropdownChange
+            ViewModel.DistanceValue.subscribe(function(newValue) {
                 onDropdownChange();
             });
 
@@ -84,7 +134,7 @@
             SetupMap();
         });
 
-
+        //functions to setup page controls
         function SetupPostcodeBox() {
             //setup the postcode searchbox using google's autocomplete geocode textbox
             PostcodeSearchbox = new google.maps.places.Autocomplete(document.getElementById('searchBox'), { types: ['geocode'] });
@@ -99,7 +149,7 @@
             var geocoder = new google.maps.Geocoder();
 
             //geocodes the middle (ish) of the UK and creates the map
-            geocoder.geocode({ 'address': country }, function (results, status) {
+            geocoder.geocode({ 'address': country }, function(results, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
                     var mapProperties = {
                         zoom: 6,
@@ -119,10 +169,13 @@
             });
         }
 
+        //onChange events for controls
         function onDropdownChange() {
             //if the user has selected their location in the textbox
-            if (userLocation != undefined);
+            if (userLocation)
                 requestMarkerDistances();
+            else
+                alert("no selection?");
         }
 
         function onPostcodeBoxChanged() {
@@ -130,10 +183,10 @@
             //get the location the user has selected from the dropdown
             userLocation = this.getPlace();
 
-            //users location as lat/lng
+            //users location as gmap lat/lng
             userLatLng = new google.maps.LatLng(userLocation.geometry.location.lat(), userLocation.geometry.location.lng());
 
-            addUserLocationMarker(userLatLng, '<em>You</em>');
+            addUserLocationMarker(userLatLng, '<em>Your location</em>');
 
             requestMarkerDistances();
         }
@@ -143,33 +196,56 @@
             //returns an array of storelocation Ids, and the distance from the user
             var markerDistances = checkMarkerDistances();
 
+            //sanity check
+            if (!markerDistances)
+                return;
+
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("LocationsListPartial", "Locations")',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify({ storeLocations: markerDistances }),
-                //dataType: "json",
                 cache: false,
                 traditional: true,
 
-                success: function (result) {
-                    $('#locationsData').html(result);
-
-                    setDisplayLocationsOverlayFlag(true);
-                },
-                error: function (result) {
-                    alert('Oh no :(');
-
-                    $('#locationsData').html("<p>Shit went south</p>");
-
-                    setDisplayLocationsOverlayFlag(true);
-                }
+                success: function(result) { displayOverlay(result); },
+                error: function(result) { displayOverlay(result); }
             });
 
-            Map.setCenter(userLatLng);
-            Map.setZoom(8);
+            var nearestStoreId = markerDistances[0].id;
+
+            //returns an array of 1, where store id matches
+            var store = getStoreById(nearestStoreId);
+
+            new google.maps.event.trigger(store.marker, 'click');
+
+            var bounds = new google.maps.LatLngBounds();
+            bounds.extend(store.marker.getPosition());
+            bounds.extend(UserMarker.getPosition());
+
+            if (Map.getCenter() !== bounds.getCenter()) {
+                Map.setCenter(bounds.getCenter());
+                Map.fitBounds(bounds);
+            }
+
+            if (Map.getZoom() !== 10)
+                Map.setZoom(10);
         }
 
+        function displayOverlay(html) {
+
+            ////display the partial view
+            var locationDataElement = document.getElementById("locationsData");
+            locationDataElement.innerHTML = html;
+
+            //clear the knockout bindings
+            ko.cleanNode(locationDataElement);
+
+            //reapply the vm to the partial view
+            ko.applyBindings(ViewModel, locationDataElement);
+
+            KO_setDisplayLocationsOverlayFlag(true);
+        }
 
         function PlaceMarkersFromModel() {
             @if (Model.Any())
@@ -177,14 +253,15 @@
                 foreach (var item in Model)
                 {
                     @:var latLng = new google.maps.LatLng("@item.latitude", "@item.longtitude");
-                    @:addStoreLocationMarker("@item.LocationId", latLng, "@item.StoreName", "@item.Address.JavascriptEscapedFormattedAddress");
+                    @:var marker = addStoreLocationMarker("@item.LocationId", latLng, "@item.StoreName", "@item.Address.EscapedFormattedAddress");
 
                     <text>
                     var storeData = {
                         Id: "@item.LocationId",
+                        marker: marker,
                         location: latLng,
-                        storeName: "@item.StoreName",
-                        address: "@item.Address.JavascriptEscapedFormattedAddress",
+                        storeName: "@item.EscapedStoreName",
+                        address: "@item.Address.EscapedFormattedAddress",
                         withinSelectedBounds: false,
                         milesFromUser: -1
                     };
@@ -195,8 +272,10 @@
             }
             else
             {
-                @:$("#locationsOverlay").html("<p>No locations found! <em>Update-Datebase ?</em></p>");
-                @:setDisplayLocationsOverlayFlag(true);
+                @*@:$("#locationsOverlay").html("<p>No locations found! <em>Update-Datebase ?</em></p>");*@
+                @:$("#locationsOverlay").innerHTML = "<p>No locations found! <em>Update-Datebase ?</em></p>";
+
+                @:KO_setDisplayLocationsOverlayFlag(true);
             }
         }
 
@@ -214,17 +293,17 @@
             });
 
             //on marker click, set the content, then move the store windo
-            google.maps.event.addListener(marker, 'click', function () {
+            google.maps.event.addListener(marker, 'click', function() {
                 StoreInfoWindow.setContent(content);
                 StoreInfoWindow.open(Map, marker);
-
-                setSelectedLocationData(id, storeName);
             });
+
+            return marker;
         }
 
         function addUserLocationMarker(location, content) {
 
-            if (UserMarker == null) {
+            if (!UserMarker) {
                 //new user location, red icon, drop
                 UserMarker = new google.maps.Marker({
                     position: location,
@@ -237,7 +316,7 @@
                 UserMarker.setPosition(location);
             }
 
-            google.maps.event.addListener(UserMarker, 'click', function () {
+            google.maps.event.addListener(UserMarker, 'click', function() {
                 UserInfoWindow.setContent(content);
                 UserInfoWindow.open(Map, UserMarker);
             });
@@ -249,66 +328,84 @@
 
         function checkMarkerDistances() {
 
+            if (!userLocation)
+                return null;
+
             var returnData = new Array();
 
             //user location lat/lng
             var userLatLng = new google.maps.LatLng(userLocation.geometry.location.lat(), userLocation.geometry.location.lng());
 
-            //the user selected distance in the dropdown
+            //the user selected distance from the dropdown
             var selectedDistanceValue = ViewModel.DistanceValue();
             var selectedDistance;
 
             switch (selectedDistanceValue) {
-                case "5 miles":
-                    selectedDistance = 5;
-                    break;
-                case "10 miles":
-                    selectedDistance = 10;
-                    break;
-                case "20 miles":
-                    selectedDistance = 20;
-                    break;
-                case "50 miles":
-                    selectedDistance = 50;
-                    break;
-                case "100 miles":
-                    selectedDistance = 100;
-                    break;
-                default:
-                    selectedDistance = 0;
+            case "5 miles":
+                selectedDistance = 5;
+                break;
+            case "10 miles":
+                selectedDistance = 10;
+                break;
+            case "20 miles":
+                selectedDistance = 20;
+                break;
+            case "50 miles":
+                selectedDistance = 50;
+                break;
+            case "100 miles":
+                selectedDistance = 100;
+                break;
+            default:
+                selectedDistance = 0;
             }
 
-            //foeach marker on the map
+            //foreach marker on the map (stores that we have saved in storeLocations)
             for (var i = 0; i < storeLocations.length; i++) {
 
+                //get the store's location latlng
                 var storeLatLng = new google.maps.LatLng(storeLocations[i].location.lat(), storeLocations[i].location.lng());
 
+                //compute distance from user to store
                 var distanceMeters = google.maps.geometry.spherical.computeDistanceBetween(userLatLng, storeLatLng);
+
+                //convert meters to miles
                 var distanceMiles = getMiles(distanceMeters);
 
-
+                //if any distance selected, all locations valid
                 if (selectedDistanceValue === "Any distance") {
-                    //any distance selected, all locations valid
                     storeLocations[i].withinSelectedBounds = true;
-                    storeLocations[i].milesFromUser = 0;
+                    storeLocations[i].milesFromUser = -1;
 
+                    //push the store data into the return object
                     returnData.push({ id: storeLocations[i].Id, distance: distanceMiles });
                 } else {
-                    //user has selected a distance limit, calculate distance of marker from user
+                    storeLocations[i].milesFromUser = distanceMiles;
+
+                    //user has selected a distance limit, is distance within bounds?
                     if (distanceMiles <= selectedDistance) {
                         storeLocations[i].withinSelectedBounds = true;
-                        storeLocations[i].milesFromUser = distanceMiles;
-
                         returnData.push({ id: storeLocations[i].Id, distance: distanceMiles });
-
                     } else {
                         storeLocations[i].withinSelectedBounds = false;
-                        storeLocations[i].milesFromUser = -1;
                     }
                 }
             }
 
+            //sort by distance
+            returnData.sort(function(a, b) {
+                return a.distance - b.distance;
+            });
+
             return returnData;
+        }
+
+        function getStoreById(id) {
+            if (storeLocations && id)
+                return storeLocations.filter(function(store) { return store.Id == id; })[0];
+            else
+                return null;
+
         }
 
     </script>
@@ -316,6 +413,11 @@
 
 
 <style>
+    /*For hiding divs that flash due to knockout binding taking too long*/
+    .hidden {
+        display: none;
+    }
+
     .container.body-content {
         margin: 0;
         padding: 0;
@@ -329,8 +431,9 @@
     #locationsOverlay {
         overflow: auto;
         position: absolute;
-        height: 480px;
-        width: 380px;
+        height: auto;
+        max-height: 480px;
+        width: 320px;
         left: 25px;
         top: 300px;
         z-index: 1;

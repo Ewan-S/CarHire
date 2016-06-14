@@ -7,6 +7,7 @@ namespace CarHire.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text.RegularExpressions;
 
     using CarHire.Models.Locations;
     using CarHire.Models.User_Classes;
@@ -22,7 +23,7 @@ namespace CarHire.Models
 
         public virtual Address Address { get; set; }
 
-        public Location(){ }
+        public Location() { }
 
         public Location(double latitude, double longitude)
         {
@@ -36,6 +37,10 @@ namespace CarHire.Models
     public class StoreLocation : Location
     {
         public string StoreName { get; set; }
+
+        //escaping potential ' in the storename
+        public string EscapedStoreName => HttpUtility.JavaScriptStringEncode(this.StoreName.Replace("'","\'"));
+
         public string TelephoneNumber { get; set; }
 
         public List<BusinessHours> BusinessHours { get; set; }

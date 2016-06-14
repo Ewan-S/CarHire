@@ -141,7 +141,7 @@ namespace CarHire.Migrations
                     longtitude = -0.562017,
                     StoreName = "Home County Cars",
                     Address = new Address { Line1 = "17 Kings Cl", City = "Chalfont Saint Giles", County = "Buckinghamshire", Town = "", Postcode = "HP8 4HW", Country = "UK" },
-                    TelephoneNumber = "03069 990682",
+                    TelephoneNumber = "07700 900709",
                     BusinessHours = new List<BusinessHours>
                                     {
                                         new BusinessHours { LocationId = newId, Day = Day.Monday, OpeningTime = new DateTime(1753, 1, 1, 8, 0, 0), ClosingTime = new DateTime(1753, 1, 1, 17, 0, 0) },
@@ -165,7 +165,7 @@ namespace CarHire.Migrations
                     longtitude = -0.136356,
                     StoreName = "T' Northern Car Company",
                     Address = new Address { Line1 = "21 Wybers Way", City = "Grimsby", County = "North East Lincolnshire", Town = "", Postcode = "DN37 9QR", Country = "UK" },
-                    TelephoneNumber = "03069 990682",
+                    TelephoneNumber = "07700 900863",
                     BusinessHours = new List<BusinessHours>
                                     {
                                         new BusinessHours { LocationId = newId, Day = Day.Monday, OpeningTime = new DateTime(1753, 1, 1, 8, 0, 0), ClosingTime = new DateTime(1753, 1, 1, 17, 0, 0) },
@@ -189,7 +189,7 @@ namespace CarHire.Migrations
                     longtitude = -0.144367,
                     StoreName = "City Cars",
                     Address = new Address { Line1 = "123 Fake street", City = "Pimlico", County = "London", Town = "", Postcode = "SW1V", Country = "UK" },
-                    TelephoneNumber = "03069 990682",
+                    TelephoneNumber = "07700 900700",
                     BusinessHours = new List<BusinessHours>
                                     {
                                         new BusinessHours { LocationId = newId, Day = Day.Monday, OpeningTime = new DateTime(1753, 1, 1, 8, 0, 0), ClosingTime = new DateTime(1753, 1, 1, 17, 0, 0) },
@@ -213,7 +213,7 @@ namespace CarHire.Migrations
                     longtitude = -4.552255,
                     StoreName = "Miner's Motors",
                     Address = new Address { Line1 = "2 Parcllyn", City = "Abercych", County = "Pembrokeshire", Town = "Boncath", Postcode = "SA37 0HA", Country = "UK" },
-                    TelephoneNumber = "03069 990682",
+                    TelephoneNumber = "07700 900722",
                     BusinessHours = new List<BusinessHours>
                                     {
                                         new BusinessHours { LocationId = newId, Day = Day.Monday, OpeningTime = new DateTime(1753, 1, 1, 8, 0, 0), ClosingTime = new DateTime(1753, 1, 1, 17, 0, 0) },
@@ -236,7 +236,7 @@ namespace CarHire.Migrations
                     longtitude = -6.635742,
                     StoreName = "Paddy's Craic Dealership",
                     Address = new Address { Line1 = "Tullybrone Rd", City = "Tassagh", County = "Armagh", Town = "Armagh", Postcode = "BT60 2QL", Country = "UK" },
-                    TelephoneNumber = "03069 990682",
+                    TelephoneNumber = "07700 900435",
                     BusinessHours = new List<BusinessHours>
                                     {
                                         new BusinessHours { LocationId = newId, Day = Day.Monday, OpeningTime = new DateTime(1753, 1, 1, 8, 0, 0), ClosingTime = new DateTime(1753, 1, 1, 17, 0, 0) },
@@ -259,7 +259,7 @@ namespace CarHire.Migrations
                     longtitude = -2.989681,
                     StoreName = "Merseyside Motors",
                     Address = new Address { Line1 = "66 - 68 Bedford Rd", City = "Bootle", County = "Merseyside", Postcode = "L20 7DW", Country = "UK" },
-                    TelephoneNumber = "03069 990682",
+                    TelephoneNumber = "07700 900094",
                     BusinessHours = new List<BusinessHours>
                                     {
                                         new BusinessHours { LocationId = newId, Day = Day.Monday, OpeningTime = new DateTime(1753, 1, 1, 8, 0, 0), ClosingTime = new DateTime(1753, 1, 1, 17, 0, 0) },
@@ -282,7 +282,7 @@ namespace CarHire.Migrations
                     longtitude = -4.114644,
                     StoreName = "Highland Hondas",
                     Address = new Address { Line1 = "104 Knockarthur", City = "Rogart", County = "Highland", Postcode = "IV28 3YE", Country = "UK" },
-                    TelephoneNumber = "03069 990682",
+                    TelephoneNumber = "08081 570188",
                     BusinessHours = new List<BusinessHours>
                                     {
                                         new BusinessHours { LocationId = newId, Day = Day.Monday, OpeningTime = new DateTime(1753, 1, 1, 8, 0, 0), ClosingTime = new DateTime(1753, 1, 1, 17, 0, 0) },
