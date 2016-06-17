@@ -5,15 +5,19 @@ namespace CarHire.Migrations
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Validation;
     using System.Diagnostics;
+    using System.Drawing;
+    using System.Linq;
 
     using CarHire.Models;
+    using CarHire.Models.Base_Classes;
     using CarHire.Models.Locations;
     using CarHire.Models.User_Classes;
+    using CarHire.Models.Vehicles;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CarHire.Models.CarHireContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<CarHireContext>
     {
         public Configuration()
         {
@@ -24,23 +28,27 @@ namespace CarHire.Migrations
         private CarHireContext context;
 
         //  This method will be called after migrating to the latest version.
-        protected override void Seed(CarHire.Models.CarHireContext context)
+        protected override void Seed(CarHireContext context)
         {
             this.context = context;
 
+            //if (Debugger.IsAttached == false)
+            //    Debugger.Launch();
+
             try
             {
-
-                CreateLocations();
-
-                CreateAdminAccountAndRoles();
-                //context.Cars.AddOrUpdate(
-                //    h => h.Registration,
-                //    // Use Name (or some other unique field) instead of Id
-                //    new Car { ModelName = "Reliant Robin", ManufactureDate = new DateTime(1964, 7, 3), VehicleId = Guid.NewGuid(), Registration = "KM02TZT" });
-
-
+                this.CreateAdminAccountAndRoles();
                 context.SaveChanges();
+
+                this.CreateLocations();
+                context.SaveChanges();
+
+                this.AddManufacturers();
+                context.SaveChanges();
+
+                this.AddCars();
+                context.SaveChanges();
+
             }
             catch (DbEntityValidationException e)
             {
@@ -48,27 +56,77 @@ namespace CarHire.Migrations
             }
         }
 
+        private List<Manufacturer> manufacturers = new List<Manufacturer>
+                                    {
+                                        new Manufacturer("Acura"),
+                                        new Manufacturer("Alfa Romeo"),
+                                        new Manufacturer("AMC"),
+                                        new Manufacturer("Audi"),
+                                        new Manufacturer("Avanti"),
+                                        new Manufacturer("Bentley"),
+                                        new Manufacturer("Cadillac"),
+                                        new Manufacturer("Chevrolet"),
+                                        new Manufacturer("DeLorean"),
+                                        new Manufacturer("Chrysler"),
+                                    };
+
+        private void AddManufacturers()
+        {
+            foreach (var manufacturer in this.manufacturers)
+            {
+                this.context.Manufacturers.Add(manufacturer);
+            }
+        }
+
+        private void AddCars()
+        {
+            var randonGen = new Random();
+            
+            var count = 0;
+            foreach (var storeLocation in this.context.StoreLocations)
+            {
+                Color randomColor = Color.FromArgb(randonGen.Next(255), randonGen.Next(255), randonGen.Next(255));
+
+                var manufacturer = this.context.Manufacturers.ToList().GetRandom();
+                var car = new Car
+                {
+                    Manufacturer = manufacturer,
+                    ManufacturerId = manufacturer.ManufacturerId,
+                    StoreLocation = storeLocation,
+                    StoreLocationId = storeLocation.LocationId,
+                    ModelName = "test model:" + count,
+                    ManufactureDate = DateTime.Now,
+                    //trim the alpha from the ARGB
+                    ColourHex = "#"+randomColor.Name.Substring(2, randomColor.Name.Length - 2).ToUpper(),
+                    EngineSize = "v1.0",
+                    NumDoors = 4,
+                    Registration = "AA00AAA",
+                    Type = VehicleType.Car
+                };
+
+                context.Cars.Add(car);
+
+                count++;
+            }
+        }
+
         public void CreateAdminAccountAndRoles()
         {
-            IdentityResult createAdminRoleResult;
-            IdentityResult createAdminUserResult;
-            IdentityResult addAdminToRoleResult;
-
             // Create a RoleManager object that is only allowed to contain IdentityRole objects.
             // When creating the RoleManager object, you pass in (as a parameter) a new RoleStore object. 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(this.context));
 
             // Then, you create the "canEdit" role if it doesn't already exist.
             if (!roleManager.RoleExists("Admin"))
             {
-                createAdminRoleResult = roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "Admin" });
             }
 
             // Create a UserManager object based on the UserStore object and the ApplicationDbContext  
             // object. Note that you can create new objects and use them as parameters in
             // a single line of code, rather than using multiple lines of code, as you did
             // for the RoleManager object.
-            var userManager = new UserManager<UserAccount>(new UserStore<UserAccount>(context));
+            var userManager = new UserManager<UserAccount>(new UserStore<UserAccount>(this.context));
             var appUser = new UserAccount
             {
                 UserName = "admin@BCR.com",
@@ -88,7 +146,7 @@ namespace CarHire.Migrations
                 }
             };
 
-            createAdminUserResult = userManager.Create(appUser, "aA1234.");
+            var createAdminUserResult = userManager.Create(appUser, "aA1234.");
 
             if (!createAdminUserResult.Succeeded)
             {
@@ -99,7 +157,7 @@ namespace CarHire.Migrations
             // add the "canEdit" user to the "canEdit" role. 
             if (!userManager.IsInRole(userManager.FindByEmail("admin@BCR.com").Id, "Admin"))
             {
-                addAdminToRoleResult = userManager.AddToRole(userManager.FindByEmail("admin@BCR.com").Id, "Admin");
+                var addAdminToRoleResult = userManager.AddToRole(userManager.FindByEmail("admin@BCR.com").Id, "Admin");
 
                 if (!addAdminToRoleResult.Succeeded)
                 {
@@ -111,7 +169,7 @@ namespace CarHire.Migrations
         public void CreateLocations()
         {
             var newId = Guid.NewGuid();
-            context.StoreLocations.AddOrUpdate(sl => sl.LocationId, new StoreLocation
+            this.context.StoreLocations.AddOrUpdate(sl => sl.LocationId, new StoreLocation
             {
                 LocationId = newId,
                 latitude = 52.10307,
@@ -132,7 +190,7 @@ namespace CarHire.Migrations
             });
 
             newId = Guid.NewGuid();
-            context.StoreLocations.AddOrUpdate(
+            this.context.StoreLocations.AddOrUpdate(
                 l => l.LocationId,
                 new StoreLocation
                 {
@@ -155,7 +213,7 @@ namespace CarHire.Migrations
                 });
 
             newId = Guid.NewGuid();
-            context.StoreLocations.AddOrUpdate(
+            this.context.StoreLocations.AddOrUpdate(
                 l => l.LocationId,
                 new StoreLocation
                 {
@@ -179,7 +237,7 @@ namespace CarHire.Migrations
                 });
 
             newId = Guid.NewGuid();
-            context.StoreLocations.AddOrUpdate(
+            this.context.StoreLocations.AddOrUpdate(
                 l => l.LocationId,
                 new StoreLocation
                 {
@@ -203,7 +261,7 @@ namespace CarHire.Migrations
                 });
 
             newId = Guid.NewGuid();
-            context.StoreLocations.AddOrUpdate(
+            this.context.StoreLocations.AddOrUpdate(
                 l => l.LocationId,
                 new StoreLocation
                 {
@@ -227,7 +285,7 @@ namespace CarHire.Migrations
                 });
 
             newId = Guid.NewGuid();
-            context.StoreLocations.AddOrUpdate(
+            this.context.StoreLocations.AddOrUpdate(
                 l => l.LocationId,
                 new StoreLocation
                 {
@@ -250,7 +308,7 @@ namespace CarHire.Migrations
                 });
 
             newId = Guid.NewGuid();
-            context.StoreLocations.AddOrUpdate(
+            this.context.StoreLocations.AddOrUpdate(
                 l => l.LocationId,
                 new StoreLocation
                 {
@@ -273,7 +331,7 @@ namespace CarHire.Migrations
                 });
 
             newId = Guid.NewGuid();
-            context.StoreLocations.AddOrUpdate(
+            this.context.StoreLocations.AddOrUpdate(
                 l => l.LocationId,
                 new StoreLocation
                 {

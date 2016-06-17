@@ -9,6 +9,7 @@ namespace CarHire.Models
 
     using CarHire.Models.Locations;
     using CarHire.Models.User_Classes;
+    using CarHire.Models.Vehicles;
 
     using Microsoft.Ajax.Utilities;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -22,32 +23,38 @@ namespace CarHire.Models
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CarHireContext>());
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<CarHireContext, Configuration>());
             //base.OnModelCreating(modelBuilder);
+
+            this.Configuration.LazyLoadingEnabled = true;
         }
-        //do we need this?
+
+        public static CarHireContext Create() => new CarHireContext();
+
         public DbSet<StoreLocation> StoreLocations { get; set; }
+        public DbSet<BusinessHours> BusinessHours { get; set; }
+
         public DbSet<Address> Addresses { get; set; }
 
-        public DbSet<BusinessHours> BusinessHours { get; set; }
         public DbSet<UserLocation> UserLocations { get; set; }
 
         public override IDbSet<UserAccount> Users { get; set; }
-
         public IDbSet<IdentityUserRole> UsersRoles { get; set; }
 
-        //public DbSet<Car> Cars { get; set; }
-
-        //public DbSet<Loan> Loans { get; set; }
-
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
 
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<IdentityUser>().ToTable("Users").Property(p => p.Id).HasColumnName("Id");
             modelBuilder.Entity<UserAccount>().ToTable("Users").Property(p => p.Id).HasColumnName("User Id");
             modelBuilder.Entity<UserLocation>().ToTable("UsersLocations");
 
-            modelBuilder.Entity<StoreLocation>().ToTable("StoreLocations");
+            modelBuilder.Entity<StoreLocation>().ToTable("StoreLocations")/*.HasMany(e => e.Vehicles).WithRequired(e => e.StoreLocation)*/;
+
+            //modelBuilder.Entity<Manufacturer>().ToTable("Manufacturers").HasMany(m => m.Models);
+
+            modelBuilder.Entity<Car>().ToTable("Cars").HasRequired(e => e.StoreLocation);
+
 
             modelBuilder.Entity<IdentityUserRole>().ToTable("UsersRoles");
             modelBuilder.Entity<IdentityUserLogin>().ToTable("UsersLogins");
@@ -55,14 +62,5 @@ namespace CarHire.Models
 
             modelBuilder.Entity<IdentityRole>().ToTable("Roles");
         }
-
-        public static CarHireContext Create()
-        {
-            return new CarHireContext();
-        }
-
-        public System.Data.Entity.DbSet<CarHire.Models.Car> Cars { get; set; }
-
-        public System.Data.Entity.DbSet<CarHire.Models.Base_Classes.Vehicle> Vehicles { get; set; }
     }
 }

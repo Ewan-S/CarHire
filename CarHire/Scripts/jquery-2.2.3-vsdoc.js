@@ -156,7 +156,7 @@
         ///     A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
         /// </summary>
         /// <param name="options" type="String">
-        ///     An optional list of space-separated flags that change how the callback list behaves.
+        ///     An optional list of space-separated flags that change how the callback collection behaves.
         /// </param>
         /// <returns type="Callbacks" />
 

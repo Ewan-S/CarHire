@@ -8,12 +8,14 @@ namespace CarHire.Repositories
     using System.Data.Entity;
     using System.Linq.Expressions;
 
-    public class Repo<T> where T : class
+    using CarHire.Models;
+
+    public class Repo<T>  where T : class
     {
-        public DbContext Context { get; set; }
+        public CarHireContext Context { get; set; }
         public DbSet<T> Dataset { get; set; }
 
-        public void Repository(DbContext context)
+        public void Repository(CarHireContext context)
         {
             this.Context = context;
             this.Dataset = context.Set<T>();
@@ -32,5 +34,6 @@ namespace CarHire.Repositories
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate) => this.Dataset.Where(predicate);
 
         public IQueryable<T> Get() => this.Dataset;
+
     }
 }

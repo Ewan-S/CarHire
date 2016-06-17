@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace CarHire.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         // GET: Admin
         public ActionResult Index()

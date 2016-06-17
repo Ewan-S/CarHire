@@ -14,7 +14,7 @@
     using Microsoft.Owin.Security;
 
     [Authorize]
-    public class AccountManageController : Controller
+    public class AccountManageController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

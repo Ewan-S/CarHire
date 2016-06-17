@@ -8,7 +8,7 @@
 <body>
     <div class="row">
         <div class="col-lg-8">
-            <h5 class="postcodeLookupText">
+            <h5 class="paddedArea">
                 <label>Find a location near you @Html.TextBox("postcodeText", null, new { placeholder = "Place/Address", @id = "searchBox", @style = "width:400px;" })</label>
 
                 <em>within <select id="distanceDropdown" data-bind="options: distanceValues, value: DistanceValue"></select></em>
@@ -20,7 +20,7 @@
             </label>
 
             <button class="btn btn-primary btn-lg" style="float: right" data-bind='click: continueWithSelection'>
-                Continue
+                Car Selection
                 <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
             </button>
         </div>
@@ -65,24 +65,40 @@
             //the selected distance (bound to the dropdown)
             self.DistanceValue = ko.observable("Any distance"),
 
-                //actual variables to store selected location data
-                self.SelectedLocationId = ko.observable(id);
+            //actual variables to store selected location data
+            self.SelectedLocationId = ko.observable(id);
             self.SelectedLocationName = ko.observable(name);
 
+            //called when the user clicks one of the select buttons, to select a store location
+            this.selectLocation = function (id) {
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SetSelectedLocation", "Locations")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ locationId: id }),
+                    cache: false,
+                    traditional: true,
+
+                    success: function (result) { alert("done") },
+                    error: function (result) { alert("error setting session") }
+                });
+
+                self.SelectedLocationId(id);
+
+                var store = getStoreById(id);
+                self.SelectedLocationName(store.storeName);
+            };
+
             this.continueWithSelection = function () {
-                //cant use js values is razor defination, so replace id values
+                //cant use js values is razor defination, so replace id value
                 var url = '@Url.Action("Index", "Vehicles", new { locationId = "_id_" })';
                 window.location.href = url.replace('_id_', ViewModel.SelectedLocationId());
             }
 
-            //called when the user clicks one of the select buttons, to select a store location
-            this.selectLocation = function(id) {
-                self.SelectedLocationId(id);
-
-                var store = getStoreById(id);
-
-                self.SelectedLocationName(store.storeName);
-            };
+            this.showLocationDetails = function(id) {
+                alert("show details for: " + id);
+            }
 
             //do we display the users selection? (has the user made a selection?)
             this.DisplaySelectedLocation = ko.computed(function() {
@@ -107,15 +123,6 @@
         //on page load function
         $(function() {
 
-            ViewModel = new LocationsViewModel(null, null);
-
-            //when the user changes the DistanceValue (which is hooked to dropdown), call onDropdownChange
-            ViewModel.DistanceValue.subscribe(function(newValue) {
-                onDropdownChange();
-            });
-
-            ko.applyBindings(ViewModel);
-
             //setup the google maps popups, but dont show or set content
             StoreInfoWindow = new google.maps.InfoWindow({
                 content: "",
@@ -132,6 +139,15 @@
 
             //create the map, and place markers
             SetupMap();
+
+            ViewModel = new LocationsViewModel(null, null);
+
+            //when the user changes the DistanceValue (which is hooked to dropdown), call onDropdownChange
+            ViewModel.DistanceValue.subscribe(function (newValue) {
+                onDropdownChange();
+            });
+
+            ko.applyBindings(ViewModel);
         });
 
         //functions to setup page controls
@@ -139,7 +155,7 @@
             //setup the postcode searchbox using google's autocomplete geocode textbox
             PostcodeSearchbox = new google.maps.places.Autocomplete(document.getElementById('searchBox'), { types: ['geocode'] });
 
-            //on postcodebox change, call:
+            //on postcodebox change call onPostcodeBoxChanged
             google.maps.event.addListener(PostcodeSearchbox, 'place_changed', onPostcodeBoxChanged);
         }
 
@@ -281,8 +297,6 @@
 
         function addStoreLocationMarker(id, latLng, storeName, address) {
 
-            var content = "<h5>" + storeName + "</h5> <hr/> <p> " + address + "</p>";
-
             //store marker, green icon, no drop
             var marker = new google.maps.Marker({
                 position: latLng,
@@ -292,10 +306,25 @@
                 icon: 'http://s33.postimg.org/pij1bi34v/rent_Marker.png'
             });
 
-            //on marker click, set the content, then move the store windo
-            google.maps.event.addListener(marker, 'click', function() {
+            //on store marker click, popup infowindow with location info
+            google.maps.event.addListener(marker, 'click', function () {
+
+                //create the pop view (not great, could load partial?)
+                //storename header, underline, address paragraph, underline, select button with knockout binding to call the select method of the VM
+                var content = "<h5>" + storeName + "</h5> <hr/> <p> " + address + "</p> <hr/> <button id=\"selectInfoButton\" style=\"text-align: center\" data-bind=\"click:selectLocation.bind($data, '" + id + "')\">Select</button>";
+
+                //set the content of the infowindow, and show it
                 StoreInfoWindow.setContent(content);
                 StoreInfoWindow.open(Map, marker);
+
+                //we still have to apply the knockout binding to the new popup content
+                var selectInfoButton = document.getElementById("selectInfoButton");
+
+                //clear the existing knockout bindings
+                ko.cleanNode(selectInfoButton);
+
+                //reapply the vm binding to the infowindow
+                ko.applyBindings(ViewModel, selectInfoButton);
             });
 
             return marker;
@@ -424,7 +453,7 @@
         width: 100%;
     }
 
-    .postcodeLookupText {
+    .paddedArea {
         padding-left: 30px;
     }
 

@@ -196,6 +196,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -207,22 +208,24 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Car.cs" />
+    <Compile Include="Models\Session Class\SessionObject.cs" />
+    <Compile Include="Models\Vehicles\Car.cs" />
     <Compile Include="Models\GeoLocation\GeoLocation.cs" />
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\Locations\BusinessHours.cs" />
     <Compile Include="Models\Locations\Location.cs" />
     <Compile Include="Models\User Classes\Address.cs" />
-    <Compile Include="Models\Van.cs" />
+    <Compile Include="Models\Vehicles\Manufacturer.cs" />
     <Compile Include="Models\CarHireContext.cs" />
     <Compile Include="ViewModels\Account\AccountViewModels.cs" />
     <Compile Include="Models\User Classes\UserAccount.cs" />
     <Compile Include="ViewModels\Account Management\AccountManageViewModel.cs" />
-    <Compile Include="Models\Base Classes\Vehicle.cs" />
+    <Compile Include="Models\Vehicles\Base Class\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CarRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Car\CarIndexViewModel.cs" />
     <Compile Include="ViewModels\Locations\StoreLocationRequestModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -341,16 +344,11 @@
     <Content Include="Views\AccountManage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Car\View.cshtml" />
+    <Content Include="Views\Car\Index.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Views\Locations\LocationsListPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\MyAccountDropdownPartial.cshtml" />
-    <Content Include="Views\Vehicles\Create.cshtml" />
-    <Content Include="Views\Vehicles\Delete.cshtml" />
-    <Content Include="Views\Vehicles\Details.cshtml" />
-    <Content Include="Views\Vehicles\Edit.cshtml" />
-    <Content Include="Views\Vehicles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

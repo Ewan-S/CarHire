@@ -19,7 +19,7 @@ namespace CarHire.Controllers
 
     using Newtonsoft.Json;
 
-    public class LocationsController : Controller
+    public class LocationsController : BaseController
     {
         private CarHireContext context = new CarHireContext();
 
@@ -45,7 +45,12 @@ namespace CarHire.Controllers
             return PartialView("LocationsListPartial", validStoreLocations);
         }
 
-
+        [HttpPost]
+        [AllowAnonymous]
+        public void SetSelectedLocation(Guid locationId)
+        {
+            
+        }
 
         //// GET: Locations/Details/5
         //public ActionResult Details(Guid? id)

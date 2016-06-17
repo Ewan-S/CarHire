@@ -9,6 +9,7 @@ namespace CarHire.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Text.RegularExpressions;
 
+    using CarHire.Models.Base_Classes;
     using CarHire.Models.Locations;
     using CarHire.Models.User_Classes;
 
@@ -43,7 +44,9 @@ namespace CarHire.Models
 
         public string TelephoneNumber { get; set; }
 
-        public List<BusinessHours> BusinessHours { get; set; }
+        public ICollection<BusinessHours> BusinessHours { get; set; }
+
+        public virtual ICollection<Vehicle> Vehicles { get; set; }
     }
 
 }

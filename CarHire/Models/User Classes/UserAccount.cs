@@ -28,14 +28,14 @@
         public override string PhoneNumber { get; set; }
         //currency
 
-        [Required]
+        //[Required]
         [DataType(DataType.Text)]
         [Display(Name = "Age")]
         public int Age { get; set; }
 
         public Address BillingAddress { get; set; }
 
-        [Required]
+        //[Required]
         public Guid AddressID { get; set; }
 
         public virtual ICollection<Loan> RentedVehicles { get; set; }

@@ -37,13 +37,14 @@ else
                         </p>
                     </div>
                     <div class="col-md-3">
-                        <a href="#" class="">
-                            Details
-                        </a>
+                        <button data-bind="click:showLocationDetails.bind($data,'@location.LocationId')">Details</button>
+
 
                         @*javascript doesn't exist in the partial, see Locations\Index.cshtml*@
                         @*<a href="#" onclick="makeStoreSelection('@location.LocationId')">Select</a>*@
+
                         <button data-bind="click:selectLocation.bind($data,'@location.LocationId')">Select</button>
+
                     </div>
                 </div>
             </div>

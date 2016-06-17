@@ -5,8 +5,10 @@ using System.Web;
 
 namespace CarHire
 {
+    using System.Data.Entity;
     using System.Data.Entity.Validation;
     using System.Diagnostics;
+    using System.Linq.Expressions;
 
     public class ExtensionMethods
     {
@@ -23,5 +25,25 @@ namespace CarHire
 
             throw e;
         }
+    }
+
+    public static class IQueryable
+    {
+        public static IQueryable<T> IncludeMultiple<T>(this IQueryable<T> query, params Expression<Func<T, object>>[] includes) where T : class
+        {
+            if (includes != null)
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return query;
+        }
+    }
+
+    public static class IList
+    {
+        private static readonly Random Rng = new Random();
+
+        public static T GetRandom<T>(this IList<T> collection) => collection[Rng.Next(collection.Count)];
     }
 }
