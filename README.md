@@ -1,2 +1,2 @@
 # CarHire
-Simple tech demo to show web development skills.
+Simple tech demo to show/refresh web development skills & learn some knockout
