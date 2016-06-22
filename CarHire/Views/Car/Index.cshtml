@@ -1,0 +1,162 @@
+﻿@using Newtonsoft.Json
+@model CarHire.ViewModels.Car.CarIndexViewModel
+
+<div class="row">
+    <div class="col-sm-3">
+        <h2 class="PageHeading">Search Vehicles</h2>
+    </div>
+    <div class="col-sm-7"></div>
+    <div class="col-sm-2">
+        <div class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" style="width: 100%">
+                    <ul class="nav navbar-nav" style="width: 100%">
+                        <li class="dropdown" style="width: 100%">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="text-align:center">Filter<strong class="caret"></strong></a>
+                            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+
+    @if (Model.selectedLocation != null)
+    {
+        <p>Showing Cars for: @Model.selectedLocation.StoreName</p>
+    }
+
+    <ul data-bind="foreach: Cars">
+        @*<p data-bind="text: $index"></p>*@
+
+            <div class="col-md-4 column productbox">
+                <div class="well">
+                    <div class="row">
+                        <img src="https://www.enterprise.co.uk/content/dam/global-vehicle-images/cars/CHRY_200_2015.png" class="img-responsive">
+                        <div class="producttitle" data-bind="text: ModelName"></div>
+                        <div class="productprice">
+                            <div class="pricetext" data-bind="text: Manufacturer.ManufacturerName"></div>
+                            <div class="pull-right">
+                                <a href="#" class="btn btn-success btn-sm" role="button">Select</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </ul>
+</div>
+
+
+
+@{
+    //ignore self referencing child loops
+    var jsModel = JsonConvert.SerializeObject(Model, Formatting.Indented, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+}
+
+<script>
+    var ViewModel;
+
+    var CarsViewmodel = function (modelData) {
+        var self = this;
+
+        self.StoreLocation = ko.observable(modelData.selectedLocation);
+
+        self.Cars = ko.observableArray(modelData.Cars);
+
+        self.removeCar = function () {
+            self.Cars.remove(this);
+        }
+    }
+
+    $(function () {
+        ViewModel = new CarsViewmodel(@Html.Raw(jsModel));
+        ko.applyBindings(ViewModel);
+
+    });
+</script>
+
+<style>
+    .productbox {
+        background-color: #ffffff;
+        padding-left: 40px;
+        padding-right: 40px;
+
+        margin-bottom: 20px;
+        /*-webkit-box-shadow: 0 8px 6px -6px #999;
+        -moz-box-shadow: 0 8px 6px -6px #999;
+        box-shadow: 0 8px 6px -6px #999;*/
+    }
+
+    .producttitle {
+        font-weight: bold;
+        padding: 5px 0 5px 0;
+    }
+
+    .productprice {
+        border-top: 1px solid #dadada;
+        padding-top: 5px;
+    }
+
+    .pricetext {
+        font-weight: bold;
+        font-size: 1.4em;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+@*
+        foreach (var car in Model)
+        {
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>@car.Manufacturer</h3>
+                    <h5>@car.ModelName</h5>
+
+                    <p>
+                        <a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        }
+
+        <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="..." alt="...">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>...</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="..." alt="...">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>...</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
+    </div>*@
