@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Vehicles" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Vehicles" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Locations" />
+  <xs:complexType name="ArrayOfCar">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Car" nillable="true" type="tns:Car" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCar" nillable="true" type="tns:ArrayOfCar" />
+  <xs:complexType name="Car">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Vehicle">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="NumDoors" type="xs:int" />
+          <xs:element minOccurs="0" name="NumSeats" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Car" nillable="true" type="tns:Car" />
+  <xs:complexType name="Vehicle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ColourHex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngineSize" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsAutomatic" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ManufactureDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Manufacturer" nillable="true" type="tns:Manufacturer" />
+      <xs:element minOccurs="0" name="ManufacturerId" type="ser:guid" />
+      <xs:element minOccurs="0" name="ModelName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Registration" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Locations" minOccurs="0" name="StoreLocation" nillable="true" type="q1:StoreLocation" />
+      <xs:element minOccurs="0" name="StoreLocationId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Type" type="tns:VehicleType" />
+      <xs:element minOccurs="0" name="VehicleId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Vehicle" nillable="true" type="tns:Vehicle" />
+  <xs:complexType name="Manufacturer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ManufacturerId" type="ser:guid" />
+      <xs:element minOccurs="0" name="ManufacturerName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Manufacturer" nillable="true" type="tns:Manufacturer" />
+  <xs:complexType name="ArrayOfVehicle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Vehicle" nillable="true" type="tns:Vehicle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVehicle" nillable="true" type="tns:ArrayOfVehicle" />
+  <xs:simpleType name="VehicleType">
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Car">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Van">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PeopleCarrier">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SUV">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:element name="VehicleType" nillable="true" type="tns:VehicleType" />
+</xs:schema>

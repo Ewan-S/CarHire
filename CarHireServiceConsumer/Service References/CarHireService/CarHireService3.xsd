@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Locations" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Locations" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Vehicles" />
+  <xs:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.User_Classes" />
+  <xs:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="StoreLocation">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Location">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BusinessHours" nillable="true" type="tns:ArrayOfBusinessHours" />
+          <xs:element minOccurs="0" name="StoreName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TelephoneNumber" nillable="true" type="xs:string" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Vehicles" minOccurs="0" name="Vehicles" nillable="true" type="q1:ArrayOfVehicle" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="StoreLocation" nillable="true" type="tns:StoreLocation" />
+  <xs:complexType name="Location">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.User_Classes" minOccurs="0" name="Address" nillable="true" type="q2:Address" />
+      <xs:element minOccurs="0" name="LocationId" type="ser:guid" />
+      <xs:element minOccurs="0" name="latitude" type="xs:double" />
+      <xs:element minOccurs="0" name="longtitude" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Location" nillable="true" type="tns:Location" />
+  <xs:complexType name="ArrayOfBusinessHours">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BusinessHours" nillable="true" type="tns:BusinessHours" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBusinessHours" nillable="true" type="tns:ArrayOfBusinessHours" />
+  <xs:complexType name="BusinessHours">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClosingTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Day" type="tns:Day" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="LocationId" type="ser:guid" />
+      <xs:element minOccurs="0" name="OpeningTime" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BusinessHours" nillable="true" type="tns:BusinessHours" />
+  <xs:simpleType name="Day">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Monday">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Tuesday">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Wednesday">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Thursday">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Friday">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Saturday">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Sunday">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Day" nillable="true" type="tns:Day" />
+</xs:schema>

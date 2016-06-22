@@ -1,9 +1,12 @@
 ﻿@using System.Linq
-@model IEnumerable<CarHire.Models.StoreLocation>
+@model IEnumerable<CarHireDataAccess.Models.Locations.StoreLocation>
 
 <head>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places,geometry"></script>
 </head>
+
+<h1 class="paddedArea PageHeading">Search Locations</h1>
+<hr />
 
 <body>
     <div class="row">
@@ -14,12 +17,12 @@
                 <em>within <select id="distanceDropdown" data-bind="options: distanceValues, value: DistanceValue"></select></em>
             </h5>
         </div>
-        <div class="col-lg-4 hidden" data-bind="visible: DisplaySelectedLocation, css: { hidden: false }">
+        <div class="col-lg-4 hidden" data-bind="visible: DisplaySelectedLocation, css: { hidden: false }" style="padding-right: 30px">
             <label>
                 Selected: <span data-bind='text: SelectedLocationName'></span>
             </label>
 
-            <button class="btn btn-primary btn-lg" style="float: right" data-bind='click: continueWithSelection'>
+            <button class="btn btn-primary btn-lg" style="float: right;" data-bind='click: continueWithSelection'>
                 Car Selection
                 <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
             </button>
@@ -80,7 +83,7 @@
                     cache: false,
                     traditional: true,
 
-                    success: function (result) { alert("done") },
+                    success: function (result) { } ,
                     error: function (result) { alert("error setting session") }
                 });
 
@@ -464,7 +467,7 @@
         max-height: 480px;
         width: 320px;
         left: 25px;
-        top: 300px;
+        top: 400px;
         z-index: 1;
         padding: 0;
         padding-bottom: 2px;

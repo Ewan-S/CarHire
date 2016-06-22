@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CarHire.Controllers
+﻿namespace CarHire.Controllers
 {
     using System.Web.Mvc;
 
-    using CarHire.Models;
-    using CarHire.Models.Session_Class;
+    using CarHireDataAccess;
+    using CarHireDataAccess.Models.Session;
 
     public class BaseController : Controller
     {

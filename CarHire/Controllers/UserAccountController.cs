@@ -1,16 +1,15 @@
 ﻿namespace CarHire.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
 
-    using CarHire.Models;
-    using CarHire.Models.User_Classes;
-    using CarHire.ViewModels;
     using CarHire.ViewModels.Account;
+
+    using CarHireDataAccess;
+    using CarHireDataAccess.Models.User_Classes;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;

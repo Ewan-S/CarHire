@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace CarHire.ViewModels.Car
 {
-    using CarHire.Models;
+    using CarHireDataAccess.Models.Locations;
+    using CarHireDataAccess.Models.Vehicles;
 
     public class CarIndexViewModel
     {

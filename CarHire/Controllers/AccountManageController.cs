@@ -5,8 +5,6 @@
     using System.Web;
     using System.Web.Mvc;
 
-    using CarHire.Models;
-    using CarHire.ViewModels;
     using CarHire.ViewModels.Account_Management;
 
     using Microsoft.AspNet.Identity;

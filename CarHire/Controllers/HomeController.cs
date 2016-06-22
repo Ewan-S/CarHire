@@ -3,9 +3,6 @@
     using System;
     using System.Web.Mvc;
 
-    using CarHire.Models;
-    using CarHire.Models.Session_Class;
-
     public class HomeController : BaseController
     {
         [AllowAnonymous]

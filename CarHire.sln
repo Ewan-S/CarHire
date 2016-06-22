@@ -5,6 +5,15 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarHire", "CarHire\CarHire.csproj", "{C6A712BC-23A3-4E3C-9ED3-160922CD0666}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarHireService", "CarHireService\CarHireService.csproj", "{64CAF702-FB29-42AA-98AA-25C49B720975}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarHireDataAccess", "CarHireDataAccess\CarHireDataAccess.csproj", "{A9574520-5A20-4C97-AEDA-14BECCE8B3BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarHireServiceConsumer", "CarHireServiceConsumer\CarHireServiceConsumer.csproj", "{2D51E53C-848C-49B6-8691-9BDB279A2167}"
+	ProjectSection(ProjectDependencies) = postProject
+		{64CAF702-FB29-42AA-98AA-25C49B720975} = {64CAF702-FB29-42AA-98AA-25C49B720975}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +24,18 @@ Global
 		{C6A712BC-23A3-4E3C-9ED3-160922CD0666}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6A712BC-23A3-4E3C-9ED3-160922CD0666}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6A712BC-23A3-4E3C-9ED3-160922CD0666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CAF702-FB29-42AA-98AA-25C49B720975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CAF702-FB29-42AA-98AA-25C49B720975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CAF702-FB29-42AA-98AA-25C49B720975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CAF702-FB29-42AA-98AA-25C49B720975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9574520-5A20-4C97-AEDA-14BECCE8B3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9574520-5A20-4C97-AEDA-14BECCE8B3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9574520-5A20-4C97-AEDA-14BECCE8B3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9574520-5A20-4C97-AEDA-14BECCE8B3BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D51E53C-848C-49B6-8691-9BDB279A2167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D51E53C-848C-49B6-8691-9BDB279A2167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D51E53C-848C-49B6-8691-9BDB279A2167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D51E53C-848C-49B6-8691-9BDB279A2167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

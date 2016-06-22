@@ -2,8 +2,8 @@
 {
     using System;
 
-    using CarHire.Models;
-    using CarHire.Models.User_Classes;
+    using CarHireDataAccess;
+    using CarHireDataAccess.Models.User_Classes;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;

@@ -26,8 +26,8 @@ textarea {
     max-width: 280px;
 }
 
-.PanelHeader {
-    font-size: larger !important;
+.PageHeading {
+    /*font-size: larger !important;*/
     /*text-align: center;*/
     text-decoration: underline;
 }

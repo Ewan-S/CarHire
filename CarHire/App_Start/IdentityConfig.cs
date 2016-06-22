@@ -4,8 +4,8 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using CarHire.Models;
-    using CarHire.Models.User_Classes;
+    using CarHireDataAccess;
+    using CarHireDataAccess.Models.User_Classes;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;

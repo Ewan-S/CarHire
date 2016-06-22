@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CarHireService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Vehicles" />
+      <xsd:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.Locations" />
+      <xsd:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CarHireDataAccess.Models.User_Classes" />
+      <xsd:import schemaLocation="http://localhost:58081/CarHireService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICarHireServiceSoap_Test_InputMessage">
+    <wsdl:part name="parameters" element="tns:Test" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_Test_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_GetAllCars_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCars" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_GetAllCars_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCarsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_GetCarById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCarById" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_GetCarById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCarByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_NewCar_InputMessage">
+    <wsdl:part name="parameters" element="tns:NewCar" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_NewCar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NewCarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_UpdateCar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCar" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_UpdateCar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_DeleteCar_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCar" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceSoap_DeleteCar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestGetAllCars_InputMessage">
+    <wsdl:part name="parameters" element="tns:RestGetAllCars" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestGetAllCars_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RestGetAllCarsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestGetCarById_InputMessage">
+    <wsdl:part name="parameters" element="tns:RestGetCarById" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestGetCarById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RestGetCarByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestNewCar_InputMessage">
+    <wsdl:part name="parameters" element="tns:RestNewCar" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestNewCar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RestNewCarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestUpdateCar_InputMessage">
+    <wsdl:part name="parameters" element="tns:RestUpdateCar" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestUpdateCar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RestUpdateCarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestDeleteCar_InputMessage">
+    <wsdl:part name="parameters" element="tns:RestDeleteCar" />
+  </wsdl:message>
+  <wsdl:message name="ICarHireServiceRest_RestDeleteCar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RestDeleteCarResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICarHireServiceSoap">
+    <wsdl:operation name="Test">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceSoap/Test" message="tns:ICarHireServiceSoap_Test_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceSoap/TestResponse" message="tns:ICarHireServiceSoap_Test_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCars">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceSoap/GetAllCars" message="tns:ICarHireServiceSoap_GetAllCars_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceSoap/GetAllCarsResponse" message="tns:ICarHireServiceSoap_GetAllCars_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCarById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceSoap/GetCarById" message="tns:ICarHireServiceSoap_GetCarById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceSoap/GetCarByIdResponse" message="tns:ICarHireServiceSoap_GetCarById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NewCar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceSoap/NewCar" message="tns:ICarHireServiceSoap_NewCar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceSoap/NewCarResponse" message="tns:ICarHireServiceSoap_NewCar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceSoap/UpdateCar" message="tns:ICarHireServiceSoap_UpdateCar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceSoap/UpdateCarResponse" message="tns:ICarHireServiceSoap_UpdateCar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceSoap/DeleteCar" message="tns:ICarHireServiceSoap_DeleteCar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceSoap/DeleteCarResponse" message="tns:ICarHireServiceSoap_DeleteCar_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ICarHireServiceRest">
+    <wsdl:operation name="RestGetAllCars">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestGetAllCars" message="tns:ICarHireServiceRest_RestGetAllCars_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestGetAllCarsResponse" message="tns:ICarHireServiceRest_RestGetAllCars_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RestGetCarById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestGetCarById" message="tns:ICarHireServiceRest_RestGetCarById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestGetCarByIdResponse" message="tns:ICarHireServiceRest_RestGetCarById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RestNewCar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestNewCar" message="tns:ICarHireServiceRest_RestNewCar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestNewCarResponse" message="tns:ICarHireServiceRest_RestNewCar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RestUpdateCar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestUpdateCar" message="tns:ICarHireServiceRest_RestUpdateCar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestUpdateCarResponse" message="tns:ICarHireServiceRest_RestUpdateCar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RestDeleteCar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestDeleteCar" message="tns:ICarHireServiceRest_RestDeleteCar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarHireServiceRest/RestDeleteCarResponse" message="tns:ICarHireServiceRest_RestDeleteCar_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SoapEndpoint" type="tns:ICarHireServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Test">
+      <soap:operation soapAction="http://tempuri.org/ICarHireServiceSoap/Test" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCars">
+      <soap:operation soapAction="http://tempuri.org/ICarHireServiceSoap/GetAllCars" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCarById">
+      <soap:operation soapAction="http://tempuri.org/ICarHireServiceSoap/GetCarById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewCar">
+      <soap:operation soapAction="http://tempuri.org/ICarHireServiceSoap/NewCar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCar">
+      <soap:operation soapAction="http://tempuri.org/ICarHireServiceSoap/UpdateCar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCar">
+      <soap:operation soapAction="http://tempuri.org/ICarHireServiceSoap/DeleteCar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CarHireService">
+    <wsdl:port name="SoapEndpoint" binding="tns:SoapEndpoint">
+      <soap:address location="http://localhost:58081/CarHireService.svc/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

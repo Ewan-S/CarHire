@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a5274400-677c-414d-ae28-a6074c6f2dbd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:58081/CarHireService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CarHireService.xsd" MetadataType="Schema" ID="9c35250f-f71e-4cf4-9334-b351c83f4bf0" SourceId="1" SourceUrl="http://localhost:58081/CarHireService.svc?xsd=xsd4" />
+    <MetadataFile FileName="CarHireService1.xsd" MetadataType="Schema" ID="5e339244-e8cc-4550-9f3a-b828e05d522b" SourceId="1" SourceUrl="http://localhost:58081/CarHireService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CarHireService2.xsd" MetadataType="Schema" ID="59bbe148-58d7-4661-bf0c-4529907c190d" SourceId="1" SourceUrl="http://localhost:58081/CarHireService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CarHireService3.xsd" MetadataType="Schema" ID="0d524e66-e1b8-488a-83de-ff169f0300aa" SourceId="1" SourceUrl="http://localhost:58081/CarHireService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CarHireService4.xsd" MetadataType="Schema" ID="e55d423c-f61a-4e32-abea-76b4e1f8a13b" SourceId="1" SourceUrl="http://localhost:58081/CarHireService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CarHireService.disco" MetadataType="Disco" ID="def666f1-88b8-45f3-ae5b-e937f0cd122a" SourceId="1" SourceUrl="http://localhost:58081/CarHireService.svc?disco" />
+    <MetadataFile FileName="CarHireService5.xsd" MetadataType="Schema" ID="465450ec-cfa6-4ed2-8725-006b1f5fd555" SourceId="1" SourceUrl="http://localhost:58081/CarHireService.svc?xsd=xsd5" />
+    <MetadataFile FileName="CarHireService.wsdl" MetadataType="Wsdl" ID="76e52d4e-d770-4f27-8d16-805a9c0044c1" SourceId="1" SourceUrl="http://localhost:58081/CarHireService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

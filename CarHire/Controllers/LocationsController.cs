@@ -1,27 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using CarHire.Models;
 
 namespace CarHire.Controllers
 {
-    using System.IO;
-    using System.Text;
-    using System.Xml.Linq;
-
-    using CarHire.Models.GeoLocation;
     using CarHire.ViewModels.Locations;
 
-    using Newtonsoft.Json;
+    using CarHireDataAccess;
 
     public class LocationsController : BaseController
     {
-        private CarHireContext context = new CarHireContext();
+        private CarHireContext context = CarHireContext.Create();
 
         // GET: Locations
         [AllowAnonymous]
