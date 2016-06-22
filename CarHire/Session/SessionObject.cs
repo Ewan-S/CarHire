@@ -5,5 +5,7 @@
     public class SessionObject
     {
         public Guid StoreLocationId { get; set; }
+
+        public Guid VehicleId { get; set; }
     }
 }

@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Loan
+    public class VehicleHire
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

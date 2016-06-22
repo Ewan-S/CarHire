@@ -38,7 +38,7 @@
         //[Required]
         public Guid AddressID { get; set; }
 
-        public virtual ICollection<Loan> RentedVehicles { get; set; }
+        public virtual ICollection<VehicleHire> RentedVehicles { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserAccount> manager)

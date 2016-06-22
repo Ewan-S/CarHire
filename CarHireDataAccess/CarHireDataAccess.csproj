@@ -58,10 +58,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CarHireContext.cs" />
     <Compile Include="Models\GeoLocation\GeoLocation.cs" />
-    <Compile Include="Models\Loan.cs" />
+    <Compile Include="Models\VehicleHire.cs" />
     <Compile Include="Models\Locations\BusinessHours.cs" />
     <Compile Include="Models\Locations\Location.cs" />
-    <Compile Include="Models\Session\SessionObject.cs" />
     <Compile Include="Models\User Classes\Address.cs" />
     <Compile Include="Models\User Classes\UserAccount.cs" />
     <Compile Include="Models\Vehicles\Vehicle.cs" />
