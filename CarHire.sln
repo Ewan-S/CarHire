@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarHire", "CarHire\CarHire.csproj", "{C6A712BC-23A3-4E3C-9ED3-160922CD0666}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarHireService", "CarHireService\CarHireService.csproj", "{64CAF702-FB29-42AA-98AA-25C49B720975}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarHireWcfService", "CarHireService\CarHireWcfService.csproj", "{64CAF702-FB29-42AA-98AA-25C49B720975}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarHireDataAccess", "CarHireDataAccess\CarHireDataAccess.csproj", "{A9574520-5A20-4C97-AEDA-14BECCE8B3BE}"
 EndProject

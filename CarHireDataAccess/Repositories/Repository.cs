@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Linq.Expressions;
 
+    using CarHireDataAccess.Models.Vehicles;
+
     public class Repo<T>  where T : class
     {
         public CarHireContext Context { get; set; }
